@@ -46,4 +46,7 @@ Route::get('usuarios/{usuario}/edit', [ControladorUsuario::class, 'edit'])->name
 Route::put('usuarios/{usuario}', [ControladorUsuario::class, 'update'])->name('usuarios.update');
 Route::delete('usuarios/{usuario}', [ControladorUsuario::class, 'destroy'])->name('usuarios.destroy');
 
+//Ruta para inicio de sesión
+Route::get('inicioSesion' , [ControladorUsuario::class, 'index'])->name('inicioSesion');
+
 

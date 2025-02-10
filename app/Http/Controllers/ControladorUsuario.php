@@ -83,7 +83,7 @@ class ControladorUsuario extends Controller
 
         // Carga el usuario
         $usuario = Usuario::findOrFail($idUsuario);
-        
+
         // Asigna los campos
         $usuario->nombreUsuario   = $request->nombreUsuario;
         $usuario->apellidoUsuario = $request->apellidoUsuario;
@@ -101,6 +101,11 @@ class ControladorUsuario extends Controller
         return redirect()->route('usuarios.index')
                          ->with('success', 'Usuario actualizado correctamente.');
     }
+
+    /**
+    * Inicio de sesión
+     */
+
 
     /**
      * Eliminar un usuario
