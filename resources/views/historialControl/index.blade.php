@@ -20,8 +20,7 @@
             @foreach ($historial as $item)
                 <tr>
                     <td>{{ $item->idHistorial }}</td>
-                    
-                    {{-- accionHistorial: 1 -> ENCENDIDO, 2 -> APAGADO --}}
+
                     <td>
                         @if ($item->accionHistorial == 1)
                             ENCENDIDO
@@ -31,10 +30,9 @@
                             DESCONOCIDO
                         @endif
                     </td>
-                    
+
                     <td>{{ $item->fechaHistorial }}</td>
                     <td>{{ $item->horaHistorial }}</td>
-                    {{-- Se muestra el tipo_Dispositivo en vez del ID --}}
                     <td>{{ $item->tipo_Dispositivo }}</td>
                     <td>{{ $item->id_Invernadero }}</td>
                 </tr>

@@ -9,9 +9,13 @@
 <body class="bg-light d-flex justify-content-center align-items-center vh-100">
     <div class="bg-white p-4 rounded shadow w-50">
         <h1 class="text-primary">AgroSmart</h1>
-        <p class="fs-4">Bienvenido administrador</p>
+        <h3>Bienvenido {{ Auth::user()->nombreUsuario }}</h3>
 
-        <button class="btn btn-danger mt-3">Cerrar Sesión</button>
+
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn btn-danger mt-3">Cerrar Sesión</button>
+        </form>
 
         <div class="mt-4">
             <ul class="list-group">
@@ -19,7 +23,6 @@
                 <li class="list-group-item list-group-item-action"><a href="{{ route('usuarios.index') }}" class="text-decoration-none text-dark">Gestionar Usuarios</a></li>
                 <li class="list-group-item list-group-item-action"><a href="{{ route('invernaderos.index') }}" class="text-decoration-none text-dark">Gestionar Invernaderos</a></li>
                 <li class="list-group-item list-group-item-action"><a href="{{ route('historialControl.index') }}" class="text-decoration-none text-dark">Consultar Historial de Control</a></li>
-                <li class="list-group-item list-group-item-action"><a href="{{ route('inicioSesion.index') }}" class="text-decoration-none text-dark">Consultar Historial de Control</a></li>
 
             </ul>
         </div>

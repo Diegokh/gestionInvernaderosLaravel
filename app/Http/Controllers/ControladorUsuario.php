@@ -8,26 +8,20 @@ use Illuminate\Support\Facades\Hash;
 
 class ControladorUsuario extends Controller
 {
-    /**
-     * Listar usuarios
-     */
+   //Listo los usuarios
     public function index()
     {
         $usuarios = Usuario::all();
         return view('usuarios.index', compact('usuarios'));
     }
 
-    /**
-     * Mostrar formulario de creación
-     */
+    //Formulario de creacion
     public function create()
     {
         return view('usuarios.create');
     }
 
-    /**
-     * Guardar nuevo usuario
-     */
+    //Nuevo usuario
     public function store(Request $request)
     {
         // Valida los campos
@@ -41,7 +35,7 @@ class ControladorUsuario extends Controller
         ]);
 
 
-        // Crea el usuario en la base de datos
+
         Usuario::create([
             'nombreUsuario'   => $request->nombreUsuario,
             'apellidoUsuario' => $request->apellidoUsuario,
@@ -51,24 +45,20 @@ class ControladorUsuario extends Controller
             'rolUsuario'      => $request->rolUsuario
         ]);
 
-        // Redirige al index
+
         return redirect()->route('usuarios.index')
                          ->with('success', 'Usuario creado correctamente.');
     }
 
-    /**
-     * Mostrar formulario de edición
-     */
+
     public function edit($idUsuario)
     {
-        // Obtiene el usuario o lanza 404 si no existe
+
         $usuario = Usuario::findOrFail($idUsuario);
         return view('usuarios.edit', compact('usuario'));
     }
 
-    /**
-     * Actualizar un usuario existente
-     */
+
     public function update(Request $request, $idUsuario)
     {
         // Valida los datos
@@ -81,10 +71,10 @@ class ControladorUsuario extends Controller
             'rolUsuario'      => 'required|string|max:50',
         ]);
 
-        // Carga el usuario
+
         $usuario = Usuario::findOrFail($idUsuario);
 
-        // Asigna los campos
+        // Asigno los campos
         $usuario->nombreUsuario   = $request->nombreUsuario;
         $usuario->apellidoUsuario = $request->apellidoUsuario;
         $usuario->emailUsuario    = $request->emailUsuario;
@@ -94,7 +84,7 @@ class ControladorUsuario extends Controller
         $usuario->telefonoUsuario = $request->telefonoUsuario;
         $usuario->rolUsuario      = $request->rolUsuario;
 
-        // Guarda los cambios
+        // Guardo los cambios
         $usuario->save();
 
         // Redirige al index
@@ -102,14 +92,9 @@ class ControladorUsuario extends Controller
                          ->with('success', 'Usuario actualizado correctamente.');
     }
 
-    /**
-    * Inicio de sesión
-     */
 
 
-    /**
-     * Eliminar un usuario
-     */
+   //Elimino el usuario
     public function destroy($idUsuario)
     {
         Usuario::destroy($idUsuario);

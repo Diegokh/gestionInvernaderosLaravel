@@ -10,7 +10,6 @@
         </div>
         <div class="card-body">
 
-            {{-- Muestra si hay errores globales (por ejemplo, varios campos a la vez) --}}
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <strong>Por favor, corrige los siguientes errores:</strong>
@@ -23,10 +22,10 @@
                 {{-- NOMBRE --}}
                 <div class="mb-3">
                     <label for="nombreUsuario" class="form-label">Nombre:</label>
-                    <input type="text" 
-                           class="form-control @error('nombreUsuario') is-invalid @enderror" 
-                           name="nombreUsuario" 
-                           value="{{ old('nombreUsuario') }}" 
+                    <input type="text"
+                           class="form-control @error('nombreUsuario') is-invalid @enderror"
+                           name="nombreUsuario"
+                           value="{{ old('nombreUsuario') }}"
                            required>
                     @error('nombreUsuario')
                         <div class="invalid-feedback">
@@ -38,10 +37,10 @@
                 {{-- APELLIDO --}}
                 <div class="mb-3">
                     <label for="apellidoUsuario" class="form-label">Apellido:</label>
-                    <input type="text" 
-                           class="form-control @error('apellidoUsuario') is-invalid @enderror" 
-                           name="apellidoUsuario" 
-                           value="{{ old('apellidoUsuario') }}" 
+                    <input type="text"
+                           class="form-control @error('apellidoUsuario') is-invalid @enderror"
+                           name="apellidoUsuario"
+                           value="{{ old('apellidoUsuario') }}"
                            required>
                     @error('apellidoUsuario')
                         <div class="invalid-feedback">
@@ -53,10 +52,10 @@
                 {{-- EMAIL --}}
                 <div class="mb-3">
                     <label for="emailUsuario" class="form-label">Email:</label>
-                    <input type="email" 
-                           class="form-control @error('emailUsuario') is-invalid @enderror" 
-                           name="emailUsuario" 
-                           value="{{ old('emailUsuario') }}" 
+                    <input type="email"
+                           class="form-control @error('emailUsuario') is-invalid @enderror"
+                           name="emailUsuario"
+                           value="{{ old('emailUsuario') }}"
                            required>
                     @error('emailUsuario')
                         <div class="invalid-feedback">
@@ -68,9 +67,9 @@
                 {{-- PASSWORD --}}
                 <div class="mb-3">
                     <label for="passwordUsuario" class="form-label">Contraseña:</label>
-                    <input type="password" 
-                           class="form-control @error('passwordUsuario') is-invalid @enderror" 
-                           name="passwordUsuario" 
+                    <input type="password"
+                           class="form-control @error('passwordUsuario') is-invalid @enderror"
+                           name="passwordUsuario"
                            required>
                     @error('passwordUsuario')
                         <div class="invalid-feedback">
@@ -82,10 +81,10 @@
                 {{-- TELÉFONO --}}
                 <div class="mb-3">
                     <label for="telefonoUsuario" class="form-label">Teléfono:</label>
-                    <input type="text" 
-                           class="form-control @error('telefonoUsuario') is-invalid @enderror" 
-                           name="telefonoUsuario" 
-                           value="{{ old('telefonoUsuario') }}" 
+                    <input type="text"
+                           class="form-control @error('telefonoUsuario') is-invalid @enderror"
+                           name="telefonoUsuario"
+                           value="{{ old('telefonoUsuario') }}"
                            required>
                     @error('telefonoUsuario')
                         <div class="invalid-feedback">
@@ -97,8 +96,8 @@
                 {{-- ROL --}}
                 <div class="mb-3">
                     <label for="rolUsuario" class="form-label">Rol:</label>
-                    <select class="form-select @error('rolUsuario') is-invalid @enderror" 
-                            name="rolUsuario" 
+                    <select class="form-select @error('rolUsuario') is-invalid @enderror"
+                            name="rolUsuario"
                             required>
                         <option value="" disabled selected>Selecciona un rol</option>
                         <option value="Administrador" {{ old('rolUsuario') == 'Administrador' ? 'selected' : '' }}>

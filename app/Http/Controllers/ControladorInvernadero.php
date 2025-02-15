@@ -7,59 +7,48 @@ use App\Models\Invernadero;
 
 class ControladorInvernadero extends Controller
 {
-    /**
-     * Muestra la lista de invernaderos.
-     */
+
     public function index()
     {
-        // Obtenemos todos los invernaderos
+        // Obtengo todos los invernaderos
         $invernaderos = Invernadero::all();
-        // Retornamos la vista con los datos
         return view('invernaderos.index', compact('invernaderos'));
     }
 
-    /**
-     * Muestra el formulario para crear un invernadero nuevo.
-     */
+
     public function create()
     {
         return view('invernaderos.create');
     }
 
-    /**
-     * Procesa la creación de un invernadero.
-     */
+
     public function store(Request $request)
     {
-        // Validamos los campos existentes en la tabla
+        // Valido los campos de  la tabla
         $request->validate([
             'ubicacionInvernadero' => 'required|string|max:255',
-            'idUsuario'            => 'required|integer',  
+            'idUsuario'            => 'required|integer',
         ]);
 
-        // Creamos el invernadero
+        // Creo el nuevo invernadero
         Invernadero::create([
             'ubicacionInvernadero' => $request->ubicacionInvernadero,
             'idUsuario'            => $request->idUsuario,
         ]);
 
-        // Redirigimos al index
+        // Vuelvo al index
         return redirect()->route('invernaderos.index')
                          ->with('success', 'Invernadero creado correctamente.');
     }
 
-    /**
-     * Muestra el formulario para editar un invernadero existente.
-     */
+
     public function edit($invernadero)
 {
     $invernadero = Invernadero::findOrFail($invernadero);
     return view('invernaderos.edit', compact('invernadero'));
 }
 
-    /**
-     * Procesa la edición de un invernadero.
-     */
+
     public function update(Request $request, $id_Invernadero)
     {
         $request->validate([
@@ -67,10 +56,10 @@ class ControladorInvernadero extends Controller
             'idUsuario'            => 'required|integer',
         ]);
 
-        // Cargamos el invernadero existente
+
         $invernadero = Invernadero::findOrFail($id_Invernadero);
 
-        // Actualizamos con los campos válidos
+        // Actualizamos  los campos
         $invernadero->update([
             'ubicacionInvernadero' => $request->ubicacionInvernadero,
             'idUsuario'            => $request->idUsuario,
@@ -80,9 +69,7 @@ class ControladorInvernadero extends Controller
                          ->with('success', 'Invernadero actualizado correctamente.');
     }
 
-    /**
-     * Elimina un invernadero de la base de datos.
-     */
+        //Elimino el invernadero
     public function destroy($id_Invernadero)
     {
         Invernadero::destroy($id_Invernadero);
