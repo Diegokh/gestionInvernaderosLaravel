@@ -5,8 +5,11 @@
 @section('content')
     <h1>Historial de Control</h1>
 
-    <table class="table table-bordered">
-        <thead class="table-dark">
+    @if($historial->isEmpty())
+        <p class="text-danger">No hay registros de historial disponibles.</p>
+    @else
+        <table class="table table-bordered">
+            <thead class="table-dark">
             <tr>
                 <th>ID Historial</th>
                 <th>Acción</th>
@@ -15,8 +18,8 @@
                 <th>Dispositivo</th>
                 <th>ID Invernadero</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             @foreach ($historial as $item)
                 <tr>
                     <td>{{ $item->idHistorial }}</td>
@@ -33,12 +36,13 @@
 
                     <td>{{ $item->fechaHistorial }}</td>
                     <td>{{ $item->horaHistorial }}</td>
-                    <td>{{ $item->tipo_Dispositivo }}</td>
-                    <td>{{ $item->id_Invernadero }}</td>
+                    <td>{{ $item->dispositivo->tipo_Dispositivo ?? 'No asignado' }}</td>
+                    <td>{{ $item->invernadero->id_Invernadero ?? 'No asignado' }}</td>
                 </tr>
             @endforeach
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    @endif
 
     <a href="{{ route('inicio') }}" class="btn btn-primary mt-3">Volver al Inicio</a>
 @endsection

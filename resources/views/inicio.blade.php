@@ -19,10 +19,17 @@
 
         <div class="mt-4">
             <ul class="list-group">
-                <li class="list-group-item list-group-item-action"><a href="{{ route('alertas.index') }}" class="text-decoration-none text-dark">Consultar Alertas de Usuarios</a></li>
-                <li class="list-group-item list-group-item-action"><a href="{{ route('usuarios.index') }}" class="text-decoration-none text-dark">Gestionar Usuarios</a></li>
-                <li class="list-group-item list-group-item-action"><a href="{{ route('invernaderos.index') }}" class="text-decoration-none text-dark">Gestionar Invernaderos</a></li>
-                <li class="list-group-item list-group-item-action"><a href="{{ route('historialControl.index') }}" class="text-decoration-none text-dark">Consultar Historial de Control</a></li>
+                @if(Auth::user()->rolUsuario == 'Administrador')
+                    <li class="list-group-item list-group-item-action"><a href="{{ route('alertas.index') }}" class="text-decoration-none text-dark">Consultar Alertas de Usuarios</a></li>
+                    <li class="list-group-item list-group-item-action"><a href="{{ route('usuarios.index') }}" class="text-decoration-none text-dark">Gestionar Usuarios</a></li>
+                    <li class="list-group-item list-group-item-action"><a href="{{ route('invernaderos.index') }}" class="text-decoration-none text-dark">Gestionar Invernaderos</a></li>
+                    <li class="list-group-item list-group-item-action"><a href="{{ route('historialControl.index') }}" class="text-decoration-none text-dark">Consultar Historial de Control</a></li>
+                @endif
+                @if(Auth::user()->rolUsuario == 'Estandar')
+                        <li class="list-group-item list-group-item-action"><a href="{{ route('alertas.index') }}" class="text-decoration-none text-dark">Consultar Alertas de Usuarios</a></li>
+                        <li class="list-group-item list-group-item-action"><a href="{{ route('historialControl.index') }}" class="text-decoration-none text-dark">Consultar Historial de Control</a></li>
+                    @endif
+
 
             </ul>
         </div>

@@ -6,11 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invernadero extends Model
 {
-    protected $table = 'invernaderos'; 
-    protected $primaryKey = 'id_Invernadero'; 
-    public $incrementing = true; 
-    protected $keyType = 'int'; 
-    protected $guarded = []; 
+    protected $table = 'invernaderos';
+    protected $primaryKey = 'id_Invernadero';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    protected $guarded = [];
 
     public $timestamps = false; //Esto hace que eloquent no busque created_at ni updated_at
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'idUsuario', 'idUsuario');
+    }
+
 }
