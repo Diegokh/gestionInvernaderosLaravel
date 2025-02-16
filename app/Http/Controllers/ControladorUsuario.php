@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ControladorUsuario extends Controller
@@ -90,6 +91,17 @@ class ControladorUsuario extends Controller
         // Redirige al index
         return redirect()->route('usuarios.index')
                          ->with('success', 'Usuario actualizado correctamente.');
+    }
+
+    //ConsultaJson
+    public function usuarioConInvernadero(){
+        if(Auth::user()->rolUsuario != 'Administrador'){
+            return response('Acceso denegado', 403);
+        }
+
+        //Obtengo la consulta JSON
+        $usuarios = Usuario::with('invernaderos')->get();
+        return response($usuarios, 200);
     }
 
 

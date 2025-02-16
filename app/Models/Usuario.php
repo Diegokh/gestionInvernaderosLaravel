@@ -23,4 +23,8 @@ class Usuario extends Authenticatable
     {
         return $this->passwordUsuario;
     }
+
+    public function invernaderos(){
+        return $this->hasMany(Invernadero::class, 'idUsuario', 'idUsuario');
+    }
 }

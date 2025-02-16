@@ -11,21 +11,34 @@ class ControladorHistorial extends Controller
 {
     public function index()
     {
-        // Obtener el usuario autenticado
+        // Obtengo el usuario
         $usuario = Auth::user();
 
-        // Si el usuario es administrador
+
         if ($usuario->rolUsuario == 'Administrador') {
             $historial = Historial::with(['dispositivo', 'invernadero'])->get();
         } else {
-            // filtro por los invernaderos que le pertenecen
             $historial = Historial::whereHas('invernadero', function ($query) use ($usuario) {
                 $query->where('idUsuario', $usuario->idUsuario);
             })
-                ->with(['dispositivo', 'invernadero']) 
+                ->with(['dispositivo', 'invernadero'])
                 ->get();
         }
 
         return view('historialControl.index', compact('historial'));
+    }
+
+    public function destroy($id)
+    {
+        $usuario = Auth::user();
+        $historial = Historial::findOrFail($id);
+
+
+        if ($usuario->rol == 'estandar') {
+            $historial->delete();
+            return redirect()->route('historialControl.index')->with('success', 'Registro eliminado correctamente.');
+        }
+
+        return redirect()->route('historialControl.index')->with('error', 'No tienes permiso para eliminar este registro.');
     }
 }

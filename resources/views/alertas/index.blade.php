@@ -5,32 +5,39 @@
 @section('content')
     <h1>Notificaciones de Alertas</h1>
 
-    <table class="table table-bordered">
-        <thead>
+
+    @if(Auth::user()->rolUsuario == 'administrador')
+        <a href="{{ route('alertas.create') }}" class="btn btn-success mb-3">Agregar Nueva Notificación</a>
+    @endif
+
+    @if($notificaciones->isEmpty())
+        <p class="text-danger">No hay notificaciones registradas.</p>
+    @else
+        <table class="table table-bordered">
+            <thead class="table-dark">
             <tr>
                 <th>ID Notificación</th>
+                <th>Usuario</th>
+                <th>Invernadero</th>
                 <th>Fecha</th>
                 <th>Hora</th>
-                <th>ID Usuario</th>
-                <th>ID Invernadero</th>
-                <th>ID Alerta</th>
+                <th>Descripción</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             @foreach ($notificaciones as $notif)
                 <tr>
                     <td>{{ $notif->idNotificacion }}</td>
+                    <td>{{ $notif->usuario->nombreUsuario ?? 'No asignado' }}</td>
+                    <td>{{ $notif->invernadero->nombreInvernadero ?? 'No asignado' }}</td>
                     <td>{{ $notif->fechaNotificacion }}</td>
                     <td>{{ $notif->horaNotificacion }}</td>
-                    <td>{{ $notif->idUsuario }}</td>
-                    <td>{{ $notif->id_Invernadero }}</td>
-                    <td>{{ $notif->descripcionAlerta }}</td>
+                    <td>{{ $notif->alerta->descripcionAlerta ?? 'No asignado' }}</td>
                 </tr>
             @endforeach
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    @endif
 
-    <a href="{{ route('inicio') }}" class="btn btn-primary mt-4">
-        Volver al Inicio
-    </a>
+    <a href="{{ route('inicio') }}" class="btn btn-primary mt-4">Volver al Inicio</a>
 @endsection

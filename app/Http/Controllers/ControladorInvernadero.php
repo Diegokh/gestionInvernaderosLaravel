@@ -59,7 +59,7 @@ class ControladorInvernadero extends Controller
 
         $invernadero = Invernadero::findOrFail($id_Invernadero);
 
-        // Actualizamos  los campos
+        // Actualizo los campos
         $invernadero->update([
             'ubicacionInvernadero' => $request->ubicacionInvernadero,
             'idUsuario'            => $request->idUsuario,
