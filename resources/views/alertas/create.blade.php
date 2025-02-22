@@ -23,7 +23,8 @@
 
         <div class="mb-3">
             <label for="idUsuario" class="form-label">Seleccionar Usuario:</label>
-            <select name="idUsuario" id="idUsuario" class="form-control" required>
+            <select name="idUsuario" id="idUsuario" class="form-control" required onchange="filtrarInvernaderos()">
+                <option value="">-- Selecciona un Usuario --</option>
                 @foreach($usuarios as $usuario)
                     <option value="{{ $usuario->idUsuario }}">{{ $usuario->nombreUsuario }}</option>
                 @endforeach
@@ -33,8 +34,11 @@
         <div class="mb-3">
             <label for="id_Invernadero" class="form-label">Seleccionar Invernadero:</label>
             <select name="id_Invernadero" id="id_Invernadero" class="form-control" required>
+                <option value="">-- Selecciona un Invernadero --</option>
                 @foreach($invernaderos as $invernadero)
-                    <option value="{{ $invernadero->id_Invernadero }}">{{ $invernadero->nombreInvernadero }}</option>
+                    <option value="{{ $invernadero->id_Invernadero }}" data-usuario="{{ $invernadero->idUsuario }}">
+                        {{ $invernadero->ubicacionInvernadero }}
+                    </option>
                 @endforeach
             </select>
         </div>
@@ -52,4 +56,21 @@
         <button type="submit" class="btn btn-success">Agregar Notificación</button>
         <a href="{{ route('alertas.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
+
+    <script>
+        function filtrarInvernaderos() {
+            let usuarioSeleccionado = document.getElementById('idUsuario').value;
+            let invernaderos = document.getElementById('id_Invernadero');
+
+            // Mostrar solo los invernaderos del usuario seleccionado
+            Array.from(invernaderos.options).forEach(option => {
+                if (option.value === "") {
+                    option.hidden = false;
+                    option.selected = true;
+                } else {
+                    option.hidden = option.getAttribute('data-usuario') !== usuarioSeleccionado;
+                }
+            });
+        }
+    </script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Invernadero;
+use Illuminate\Support\Facades\Auth;
 
 class ControladorInvernadero extends Controller
 {
@@ -76,5 +77,30 @@ class ControladorInvernadero extends Controller
 
         return redirect()->route('invernaderos.index')
                          ->with('success', 'Invernadero eliminado correctamente.');
+    }
+
+
+    public function misInvernaderos()
+    {
+        // Obtengo el usuario logeado
+        $usuario = Auth::user();
+
+        //Obtenfo los invernaderos relacionados con el usuario
+        $invernaderos = Invernadero::where('idUsuario', $usuario->idUsuario)
+            ->with([
+                // Incluyo los detalles de la alerta en la notificacn
+                'notificaciones.alerta',  
+                // Incluyo el historial de control
+                'historial'  
+            ])
+            ->get();
+
+        // Verifico si hay invernaderos relacionados con el usuario logeado
+        if ($invernaderos->isEmpty()) {
+            return response()->json(['message' => 'No tienes invernaderos registrados.'], 404);
+        }
+
+        
+        return response()->json($invernaderos, 200);
     }
 }

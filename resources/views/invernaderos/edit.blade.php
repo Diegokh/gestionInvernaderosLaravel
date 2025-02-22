@@ -1,4 +1,3 @@
-<!-- resources/views/invernaderos/edit.blade.php -->
 @extends('principal.app')
 
 @section('content')
@@ -8,11 +7,11 @@
         @method('PUT')
 
         <label for="ubicacionInvernadero">Ubicación:</label>
-        <input type="text" name="ubicacionInvernadero" 
+        <input type="text" name="ubicacionInvernadero"
                value="{{ $invernadero->ubicacionInvernadero }}" required>
 
         <label for="idUsuario">ID de Usuario:</label>
-        <input type="number" name="idUsuario" 
+        <input type="number" name="idUsuario"
                value="{{ $invernadero->idUsuario }}" required>
 
         <button type="submit">Actualizar</button>

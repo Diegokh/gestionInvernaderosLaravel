@@ -17,13 +17,13 @@ class Notificacion extends Model
         return $this->belongsTo(Usuario::class, 'idUsuario', 'idUsuario');
     }
 
-    // Relación con Alerta
+    // Relacion con Alerta
     public function alerta()
     {
         return $this->belongsTo(Alerta::class, 'idAlerta', 'idAlerta');
     }
 
-    // Relación con Invernadero
+    // Relacion con Invernadero
     public function invernadero()
     {
         return $this->belongsTo(Invernadero::class, 'id_Invernadero', 'id_Invernadero');

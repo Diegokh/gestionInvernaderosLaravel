@@ -6,44 +6,46 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Notificacion;
+use App\Models\Invernadero;
 
 class ControladorAlerta extends Controller
 {
     // Método para listar notificaciones
     public function index()
-    {
-        $usuario = Auth::user();
+{
+    $usuario = Auth::user();
 
-        if ($usuario->rolUsuario == 'admin') {
-            // Si es admin  obtiene todas las notificaciones
-            $notificaciones = Notificacion::with(['alerta', 'usuario', 'invernadero'])->get();
-        } else {
-            //Si  estándar solo obtiene sus notificaciones
-            $notificaciones = Notificacion::where('idUsuario', Auth::id())->with(['alerta', 'usuario', 'invernadero'])->get();
-        }
-
-        return view('alertas.index', compact('notificaciones'));
+    if ($usuario->rolUsuario == 'Estandar') {
+        // Si es un usuario estandar solo ve sus alertas
+        $notificaciones = Notificacion::where('idUsuario', $usuario->idUsuario)
+                                      ->with(['alerta', 'usuario', 'invernadero'])
+                                      ->get();
+    } else {
+        // Si es administrador ve todas
+        $notificaciones = Notificacion::with(['alerta', 'usuario', 'invernadero'])->get();
     }
 
-
-    public function create()
-    {
-        if (Auth::user()->rolUsuario != 'admin') {
-            return redirect()->route('alertas.index')->with('error', 'No tienes permiso para agregar notificaciones.');
-        }
+    return view('alertas.index', compact('notificaciones'));
+}
 
 
-        $alertas = DB::table('alertas')->get();
-        $usuarios = DB::table('usuarios')->get();
-        $invernaderos = DB::table('invernaderos')->get();
-
-        return view('alertas.create', compact('alertas', 'usuarios', 'invernaderos'));
+public function create()
+{
+    if (Auth::user()->rolUsuario != 'Administrador') {
+        return redirect()->route('alertas.index')->with('error', 'No tienes permiso para agregar notificaciones.');
     }
+
+    $alertas = \App\Models\Alerta::all();
+    $usuarios = \App\Models\Usuario::all();
+    $invernaderos = Invernadero::all(); 
+
+    return view('alertas.create', compact('alertas', 'usuarios', 'invernaderos'));
+}
 
 
     public function store(Request $request)
     {
-        if (Auth::user()->rolUsuario != 'admin') {
+        if (Auth::user()->rolUsuario != 'Administrador') {
             return redirect()->route('alertas.index')->with('error', 'No tienes permiso para agregar notificaciones.');
         }
 

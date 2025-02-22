@@ -27,4 +27,10 @@ class Usuario extends Authenticatable
     public function invernaderos(){
         return $this->hasMany(Invernadero::class, 'idUsuario', 'idUsuario');
     }
+
+    public function hasRole($role)
+{
+    return $this->rolUsuario === $role;
+}
+
 }

@@ -25,7 +25,7 @@ class ControladorUsuario extends Controller
     //Nuevo usuario
     public function store(Request $request)
     {
-        // Valida los campos
+        // Valido los campos
         $request->validate([
             'nombreUsuario'   => 'required|string|max:255',
             'apellidoUsuario' => 'required|string|max:255',
@@ -62,7 +62,7 @@ class ControladorUsuario extends Controller
 
     public function update(Request $request, $idUsuario)
     {
-        // Valida los datos
+        // Valido los datos
         $request->validate([
             'nombreUsuario'   => 'required|string|max:255',
             'apellidoUsuario' => 'required|string|max:255',
