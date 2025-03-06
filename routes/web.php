@@ -53,6 +53,7 @@ Route::middleware(['auth', 'role:Administrador'])->group(function () {
     Route::get('invernaderos/{invernadero}/edit', [ControladorInvernadero::class, 'edit'])->name('invernaderos.edit');
     Route::put('invernaderos/{invernadero}', [ControladorInvernadero::class, 'update'])->name('invernaderos.update');
     Route::delete('invernaderos/{invernadero}', [ControladorInvernadero::class, 'destroy'])->name('invernaderos.destroy');
+    Route::get('/dashboard', [ControladorInvernadero::class, 'dashboard'])->name('dashboard');
 });
 
 //  RUTAS PARA USUARIOS 

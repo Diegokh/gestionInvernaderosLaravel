@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Support\Facades\DB;
+
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,5 +30,18 @@ class Invernadero extends Model
     {
         return $this->hasMany(Historial::class, 'id_Invernadero', 'id_Invernadero');
     }
+
+
+    static public function getUsuariosPorInvernaderos() {
+        return DB::table('invernaderos')
+            ->join('usuarios', 'invernaderos.idUsuario', '=', 'usuarios.idUsuario') 
+            ->select(
+                'usuarios.nombreUsuario as dueños', 
+                DB::raw('COUNT(invernaderos.id_Invernadero) as cantidad')
+            )
+            ->groupBy('usuarios.nombreUsuario')
+            ->get();
+    }
+    
 
 }

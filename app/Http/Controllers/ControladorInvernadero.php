@@ -100,7 +100,20 @@ class ControladorInvernadero extends Controller
             return response()->json(['message' => 'No tienes invernaderos registrados.'], 404);
         }
 
+       
+
         
         return response()->json($invernaderos, 200);
+    }
+
+
+    public function dashboard() {
+        $datos = Invernadero::getUsuariosPorInvernaderos();
+
+        //dd($datos);
+
+        return view('dashboard', [
+            'datos' => $datos
+        ]);
     }
 }
