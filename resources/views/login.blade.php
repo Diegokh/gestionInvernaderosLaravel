@@ -2,6 +2,14 @@
 
 @section('title', 'Login de Usuario')
 
+@push('styles')
+    <style>
+        body {
+            background: url("{{ asset('images/bkgIMG.jpg') }}");
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow-lg p-4 w-50">
