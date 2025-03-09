@@ -56,7 +56,7 @@
         </table>
     @endif
 
-    <!-- Modal -->
+   
     <div class="modal fade" id="crearAlertaModal" tabindex="-1" role="dialog" aria-labelledby="crearAlertaModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -100,16 +100,16 @@
         $('#crearAlertaModal').modal('show');
     });
         $('#formCrearAlerta').submit(function(event) {
-            event.preventDefault(); // Previene el envío del formulario por defecto
+            event.preventDefault(); 
 
             $.ajax({
                 url: "{{ route('alertas.store') }}",
                 method: "POST",
                 data: $(this).serialize(),
                 success: function(response) {
-                    alert('Alerta creada exitosamente');
-                    $('#crearAlertaModal').modal('hide'); // Cerrar el modal
-                    location.reload(); // Recargar la página para ver la nueva alerta
+                    alert('Alerta creada ');
+                    $('#crearAlertaModal').modal('hide'); 
+                    location.reload(); 
                 },
                 error: function(xhr) {
                     alert('Error al crear la alerta');

@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <h1 class="text-primary text-center">Gestión de Usuarios</h1>
 
-    <!-- Boton para abrir el modal de creacion -->
+    <!-- Boton de modal de creacion -->
     <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal">
         Añadir Usuario
     </button>

@@ -10,18 +10,18 @@ use App\Models\Invernadero;
 
 class ControladorAlerta extends Controller
 {
-    // Método para listar notificaciones
+    // listo las notificaciones
     public function index()
 {
     $usuario = Auth::user();
 
     if ($usuario->rolUsuario == 'Estandar') {
-        // Si es un usuario estandar solo ve sus alertas
+        // Usuario estandar
         $notificaciones = Notificacion::where('idUsuario', $usuario->idUsuario)
                                       ->with(['alerta', 'usuario', 'invernadero'])
                                       ->get();
     } else {
-        // Si es administrador ve todas
+        // Administrador
         $notificaciones = Notificacion::with(['alerta', 'usuario', 'invernadero'])->get();
     }
 
@@ -58,7 +58,7 @@ public function create()
             'horaNotificacion' => 'required',
         ]);
 
-        // Insertar la nueva notificación
+        // Insertar la nueva notificacion
         DB::table('notificacionalertausuario')->insert([
             'idAlerta' => $request->idAlerta,
             'idUsuario' => $request->idUsuario,

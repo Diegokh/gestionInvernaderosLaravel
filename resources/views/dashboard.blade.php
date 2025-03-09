@@ -43,7 +43,6 @@
         });
 
         var datos = @json($datos);
-    console.log(datos); // Ver datos en la consola del navegador
     </script>
 </body>
 </html>

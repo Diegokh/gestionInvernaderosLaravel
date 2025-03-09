@@ -12,14 +12,14 @@
 
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    <strong>Por favor, corrige los siguientes errores:</strong>
+                    <strong>Corrige los errores</strong>
                 </div>
             @endif
 
             <form action="{{ route('usuarios.store') }}" method="POST">
                 @csrf
 
-                {{-- NOMBRE --}}
+                
                 <div class="mb-3">
                     <label for="nombreUsuario" class="form-label">Nombre:</label>
                     <input type="text"
@@ -34,7 +34,7 @@
                     @enderror
                 </div>
 
-                {{-- APELLIDO --}}
+                
                 <div class="mb-3">
                     <label for="apellidoUsuario" class="form-label">Apellido:</label>
                     <input type="text"
@@ -49,7 +49,7 @@
                     @enderror
                 </div>
 
-                {{-- EMAIL --}}
+                
                 <div class="mb-3">
                     <label for="emailUsuario" class="form-label">Email:</label>
                     <input type="email"
@@ -64,7 +64,7 @@
                     @enderror
                 </div>
 
-                {{-- PASSWORD --}}
+                
                 <div class="mb-3">
                     <label for="passwordUsuario" class="form-label">Contraseña:</label>
                     <input type="password"
@@ -78,7 +78,7 @@
                     @enderror
                 </div>
 
-                {{-- TELÉFONO --}}
+                
                 <div class="mb-3">
                     <label for="telefonoUsuario" class="form-label">Teléfono:</label>
                     <input type="text"
@@ -93,7 +93,7 @@
                     @enderror
                 </div>
 
-                {{-- ROL --}}
+                
                 <div class="mb-3">
                     <label for="rolUsuario" class="form-label">Rol:</label>
                     <select class="form-select @error('rolUsuario') is-invalid @enderror"
