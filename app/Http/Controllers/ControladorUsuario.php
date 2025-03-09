@@ -25,7 +25,9 @@ class ControladorUsuario extends Controller
     //Nuevo usuario
     public function store(Request $request)
     {
-        // Valido los campos
+
+        
+        // Validar los datos
         $request->validate([
             'nombreUsuario'   => 'required|string|max:255',
             'apellidoUsuario' => 'required|string|max:255',
@@ -34,22 +36,23 @@ class ControladorUsuario extends Controller
             'telefonoUsuario' => 'required|string|max:255',
             'rolUsuario'      => 'required|string|max:50',
         ]);
-
-
-
-        Usuario::create([
+    
+        // Crear usuario
+        $usuario = Usuario::create([
             'nombreUsuario'   => $request->nombreUsuario,
             'apellidoUsuario' => $request->apellidoUsuario,
             'emailUsuario'    => $request->emailUsuario,
             'passwordUsuario' => Hash::make($request->passwordUsuario),
             'telefonoUsuario' => $request->telefonoUsuario,
-            'rolUsuario'      => $request->rolUsuario
+            'rolUsuario'      => $request->rolUsuario,
         ]);
-
-
-        return redirect()->route('usuarios.index')
-                         ->with('success', 'Usuario creado correctamente.');
+    
+        return response()->json([
+            'success' => true,
+            'usuario' => $usuario
+        ]);
     }
+    
 
 
     public function edit($idUsuario)
@@ -62,35 +65,28 @@ class ControladorUsuario extends Controller
 
     public function update(Request $request, $idUsuario)
     {
-        // Valido los datos
+        // Validar los datos
         $request->validate([
             'nombreUsuario'   => 'required|string|max:255',
             'apellidoUsuario' => 'required|string|max:255',
             'emailUsuario'    => 'required|email|unique:usuarios,emailUsuario,' . $idUsuario . ',idUsuario',
-            'passwordUsuario' => 'nullable|string|min:8',
             'telefonoUsuario' => 'required|string|max:255',
             'rolUsuario'      => 'required|string|max:50',
         ]);
-
-
+    
         $usuario = Usuario::findOrFail($idUsuario);
-
-        // Asigno los campos
-        $usuario->nombreUsuario   = $request->nombreUsuario;
-        $usuario->apellidoUsuario = $request->apellidoUsuario;
-        $usuario->emailUsuario    = $request->emailUsuario;
-        if ($request->passwordUsuario) {
-            $usuario->passwordUsuario = Hash::make($request->passwordUsuario);
-        }
-        $usuario->telefonoUsuario = $request->telefonoUsuario;
-        $usuario->rolUsuario      = $request->rolUsuario;
-
-        // Guardo los cambios
-        $usuario->save();
-
-        // Redirige al index
-        return redirect()->route('usuarios.index')
-                         ->with('success', 'Usuario actualizado correctamente.');
+        $usuario->update([
+            'nombreUsuario'   => $request->nombreUsuario,
+            'apellidoUsuario' => $request->apellidoUsuario,
+            'emailUsuario'    => $request->emailUsuario,
+            'telefonoUsuario' => $request->telefonoUsuario,
+            'rolUsuario'      => $request->rolUsuario,
+        ]);
+    
+        return response()->json([
+            'success' => true,
+            'usuario' => $usuario
+        ]);
     }
 
     //ConsultaJson

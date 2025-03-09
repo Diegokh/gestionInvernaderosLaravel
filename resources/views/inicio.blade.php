@@ -23,8 +23,8 @@
                     <li class="list-group-item list-group-item-action"><a href="{{ route('alertas.index') }}" class="text-decoration-none text-dark">Consultar Alertas de Usuarios</a></li>
                     <li class="list-group-item list-group-item-action"><a href="{{ route('usuarios.index') }}" class="text-decoration-none text-dark">Gestionar Usuarios</a></li>
                     <li class="list-group-item list-group-item-action"><a href="{{ route('invernaderos.index') }}" class="text-decoration-none text-dark">Gestionar Invernaderos</a></li>
-                    <li class="list-group-item list-group-item-action"><a href="{{ route('historialControl.index') }}" class="text-decoration-none text-dark">Consultar Historial de Control</a></li>
                     <li class="list-group-item list-group-item-action"><a href="{{ url('/usuariosInvernaderosJSON') }}" class="text-decoration-none text-dark">Consulta JSON</a></li>
+                    <li class="list-group-item list-group-item-action"><a href="{{ url('/dashboard') }}" class="text-decoration-none text-dark">Consulta Dashboard</a></li>
                 @endif
                 @if(Auth::user()->rolUsuario == 'Estandar')
                         <li class="list-group-item list-group-item-action"><a href="{{ route('alertas.index') }}" class="text-decoration-none text-dark">Consultar Alertas de Usuarios</a></li>

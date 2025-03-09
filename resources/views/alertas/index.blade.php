@@ -4,9 +4,12 @@
 
 @section('content')
     <h1>Notificaciones de Alertas</h1>
-
+    
     @if(Auth::user()->rolUsuario == 'Administrador')
-        <a href="{{ route('alertas.create') }}" class="btn btn-success mb-3">Agregar Nueva Notificación</a>
+    <button type="button" class="btn btn-primary" id="btnCrearAlerta" data-toggle="modal" data-target="#crearAlertaModal">
+        Crear Alerta
+    </button>
+    
     @endif
 
     @if($notificaciones->isEmpty())
@@ -52,6 +55,69 @@
             </tbody>
         </table>
     @endif
+
+    <!-- Modal -->
+    <div class="modal fade" id="crearAlertaModal" tabindex="-1" role="dialog" aria-labelledby="crearAlertaModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearAlertaModalLabel">Crear Alerta</h5>
+                  
+                </div>
+                <div class="modal-body">
+                    <form id="formCrearAlerta">
+                        @csrf
+                        <div class="form-group">
+                            <label for="idAlerta">ID Alerta</label>
+                            <input type="text" class="form-control" id="idAlerta" name="idAlerta" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="idUsuario">ID Usuario</label>
+                            <input type="text" class="form-control" id="idUsuario" name="idUsuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_Invernadero">ID Invernadero</label>
+                            <input type="text" class="form-control" id="id_Invernadero" name="id_Invernadero" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaNotificacion">Fecha Notificación</label>
+                            <input type="date" class="form-control" id="fechaNotificacion" name="fechaNotificacion" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="horaNotificacion">Hora Notificación</label>
+                            <input type="time" class="form-control" id="horaNotificacion" name="horaNotificacion" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function() {
+        $('#btnCrearAlerta').click(function() {
+        $('#crearAlertaModal').modal('show');
+    });
+        $('#formCrearAlerta').submit(function(event) {
+            event.preventDefault(); // Previene el envío del formulario por defecto
+
+            $.ajax({
+                url: "{{ route('alertas.store') }}",
+                method: "POST",
+                data: $(this).serialize(),
+                success: function(response) {
+                    alert('Alerta creada exitosamente');
+                    $('#crearAlertaModal').modal('hide'); // Cerrar el modal
+                    location.reload(); // Recargar la página para ver la nueva alerta
+                },
+                error: function(xhr) {
+                    alert('Error al crear la alerta');
+                }
+            });
+        });
+    });
+</script>
 
     <a href="{{ route('inicio') }}" class="btn btn-primary mt-4">Volver al Inicio</a>
 @endsection

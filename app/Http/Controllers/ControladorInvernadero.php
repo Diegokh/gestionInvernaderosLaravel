@@ -32,10 +32,16 @@ class ControladorInvernadero extends Controller
         ]);
 
         // Creo el nuevo invernadero
-        Invernadero::create([
+        $invernadero = Invernadero::create([
             'ubicacionInvernadero' => $request->ubicacionInvernadero,
             'idUsuario'            => $request->idUsuario,
         ]);
+
+        // Devolver respuesta JSON
+    return response()->json([
+        'success' => true,
+        'invernadero' => $invernadero
+    ]);
 
         // Vuelvo al index
         return redirect()->route('invernaderos.index')
@@ -50,25 +56,25 @@ class ControladorInvernadero extends Controller
 }
 
 
-    public function update(Request $request, $id_Invernadero)
-    {
-        $request->validate([
-            'ubicacionInvernadero' => 'required|string|max:255',
-            'idUsuario'            => 'required|integer',
-        ]);
+public function update(Request $request, $id_Invernadero)
+{
+    $request->validate([
+        'ubicacionInvernadero' => 'required|string|max:255',
+        'idUsuario'            => 'required|integer',
+    ]);
 
+    $invernadero = Invernadero::findOrFail($id_Invernadero);
+    $invernadero->update([
+        'ubicacionInvernadero' => $request->ubicacionInvernadero,
+        'idUsuario'            => $request->idUsuario,
+    ]);
 
-        $invernadero = Invernadero::findOrFail($id_Invernadero);
+    return response()->json([
+        'success' => true,
+        'invernadero' => $invernadero
+    ]);
+}
 
-        // Actualizo los campos
-        $invernadero->update([
-            'ubicacionInvernadero' => $request->ubicacionInvernadero,
-            'idUsuario'            => $request->idUsuario,
-        ]);
-
-        return redirect()->route('invernaderos.index')
-                         ->with('success', 'Invernadero actualizado correctamente.');
-    }
 
         //Elimino el invernadero
     public function destroy($id_Invernadero)

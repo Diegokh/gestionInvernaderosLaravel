@@ -29,21 +29,21 @@ Route::middleware(['auth', 'role:Administrador,Estandar'])->group(function () {
         Route::get('notificaciones/create', [ControladorAlerta::class, 'createNotification'])->name('notificaciones.create');
         Route::post('notificaciones', [ControladorAlerta::class, 'storeNotification'])->name('notificaciones.store');
     });
-/*
+
     // Detalles y edición de alertas
     Route::middleware('role:Administrador')->group(function () {
         Route::get('alertas/{alerta}', [ControladorAlerta::class, 'show'])->name('alertas.show');
         Route::get('alertas/{alerta}/edit', [ControladorAlerta::class, 'edit'])->name('alertas.edit');
         Route::put('alertas/{alerta}', [ControladorAlerta::class, 'update'])->name('alertas.update');
         Route::delete('alertas/{alerta}', [ControladorAlerta::class, 'destroy'])->name('alertas.destroy');
-    });*/
+    });
 });
 
-/*  RUTAS PARA HISTORIAL DE CONTROL 
-Route::middleware(['auth', 'role:Estandar'])->group(function () {
+ //RUTAS PARA HISTORIAL DE CONTROL 
+Route::middleware(['auth', 'role:Estandar,Administrador'])->group(function () {
     Route::get('historialControl', [ControladorHistorial::class, 'index'])->name('historialControl.index');
     Route::delete('historial/{id}', [ControladorHistorial::class, 'destroy'])->name('historial.destroy');
-});*/
+});
 
 //  RUTAS PARA INVERNADEROS 
 Route::middleware(['auth', 'role:Administrador'])->group(function () {
@@ -64,6 +64,7 @@ Route::middleware(['auth', 'role:Administrador'])->group(function () {
     Route::get('usuarios/{usuario}/edit', [ControladorUsuario::class, 'edit'])->name('usuarios.edit');
     Route::put('usuarios/{usuario}', [ControladorUsuario::class, 'update'])->name('usuarios.update');
     Route::delete('usuarios/{usuario}', [ControladorUsuario::class, 'destroy'])->name('usuarios.destroy');
+
 });
 
 // RUTAS PARA INICIO DE SESIÓN Y CIERRE DE SESIÓN
@@ -76,3 +77,6 @@ Route::middleware(['auth', 'role:Administrador'])->get('/usuariosInvernaderosJSO
 
 //RUTA PARA API ESTANDAR
 Route::middleware(['auth', 'role:Estandar'])->get('/InvernaderosEstandar', [ControladorInvernadero::class, 'misInvernaderos']);
+
+//RUTA PARA DASHBOARD
+Route::middleware(['auth','role:Administrador'])->get('/dashboard' , [ControladorInvernadero::class,'dashboard']);
